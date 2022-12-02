@@ -1,0 +1,22 @@
+# EXPLAINATION
+# - namespace: self-explanatory
+#              If you are using vanilla item, make sure it matches this: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+#   type: either jext for custom disc or vanilla for vanilla minecraft item
+#   chance: from 0.1 to 1.0: (x*100)% chance of happening, make sure it has a dot (1.0)
+#   lottable: the loottable for the item: https://mcreator.net/wiki/minecraft-vanilla-loot-tables-list (currently only support Chest loot tables section i think)
+#   min, max: self-explanatory
+
+loots:
+  - namespace: "cosmicsmp:cmd.music_disc_nullaby"
+    type: jext
+    chance: 0.08
+    loottable: chests/end_city_treasure
+    min: 1
+    max: 1
+
+#  - namespace: "COMMAND_BLOCK"
+#    type: vanilla
+#    chance: 1
+#    loottable: chests/end_city_treasure
+#    min: 1234
+#    max: 14
