@@ -3,7 +3,7 @@ package withicality.csmp.global;
 import org.bukkit.plugin.java.JavaPlugin;
 import withicality.csmp.global.commands.*;
 import withicality.csmp.global.listeners.LootGeneratorListener;
-import withicality.csmp.global.listeners.SocialSpyListeners;
+import withicality.csmp.global.listeners.SocialSpyListener;
 import withicality.withicalutilities.APIManager;
 import withicality.withicalutilities.WithicalConfig;
 
@@ -23,7 +23,7 @@ public class CosmicGlobal extends JavaPlugin {
         APIManager.registerCommand(new FakeopCommand(), this);
         APIManager.registerCommand(new SocialSpyCommand(), this);
 
-        getServer().getPluginManager().registerEvents(new SocialSpyListeners(), this);
+        getServer().getPluginManager().registerEvents(new SocialSpyListener(), this);
         getServer().getPluginManager().registerEvents(new LootGeneratorListener(), this);
     }
 }

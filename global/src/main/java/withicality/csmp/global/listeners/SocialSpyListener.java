@@ -9,7 +9,7 @@ import withicality.csmp.api.MessageManager;
 
 import java.util.UUID;
 
-public class SocialSpyListeners implements Listener {
+public class SocialSpyListener implements Listener {
     @EventHandler
     public void onSussy(MessageManager.MessageEvent event) {
         String message = ChatColor.translateAlternateColorCodes('&', "" +
