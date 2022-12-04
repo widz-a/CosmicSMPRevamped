@@ -2,6 +2,7 @@ package withicality.csmp.global.commands;
 
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class FunnyCommand extends CosmicCommand {
     public FunnyCommand() {
-        super("proxsuckmyp", "", "", new ArrayList<>(), "csmp.funnycommand");
+        super("proxsuckmyp", "", "", ImmutableList.of(), "csmp.funnycommand");
     }
 
     @Override
