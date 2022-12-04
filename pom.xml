@@ -7,7 +7,7 @@
     <groupId>withicality</groupId>
     <artifactId>csmp</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>1.0.1</version>
 
     <modules>
         <module>global</module>
