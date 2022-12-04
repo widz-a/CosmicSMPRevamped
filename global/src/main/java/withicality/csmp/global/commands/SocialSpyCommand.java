@@ -28,14 +28,14 @@ public class SocialSpyCommand extends CosmicCommand {
         // /socialspy
         if (args.length == 0) {
             boolean a = MessageManager.updateSpies(player, !MessageManager.containSpies(player));
-            send(player, a);
+            send(player, player, a);
             return;
         }
 
         // /socialspy [on|off]
         if (Arrays.asList("on", "off").contains(args[0].toLowerCase())) {
             boolean a = MessageManager.updateSpies(player, args[0].equalsIgnoreCase("on"));
-            send(player, a);
+            send(player, player, a);
             return;
         }
 
@@ -48,7 +48,7 @@ public class SocialSpyCommand extends CosmicCommand {
         // /socialspy [player]
         if (args.length == 1) {
             boolean a = MessageManager.updateSpies(victim, !MessageManager.containSpies(player));
-            send(player, a);
+            send(player, victim, a);
             return;
         }
 
@@ -59,7 +59,7 @@ public class SocialSpyCommand extends CosmicCommand {
         }
 
         boolean a = MessageManager.updateSpies(victim, args[1].equalsIgnoreCase("on"));
-        send(player, a);
+        send(player, victim, a);
 
     }
 
@@ -76,11 +76,11 @@ public class SocialSpyCommand extends CosmicCommand {
         return args.length == 1 ? players : (args.length == 2 ? YN : ImmutableList.of());
     }
 
-    private void send(Player player, boolean resp) {
+    private void send(Player sender, Player player, boolean resp) {
         String turned = MessageManager.containSpies(player) ? "on" : "off";
         String already = resp ? ChatColor.AQUA + "T" : ChatColor.RED +  "Already t";
         String pName = ChatColor.DARK_AQUA + player.getName() + ChatColor.AQUA + ".";
-        player.sendMessage(already + "urned " + turned + " social spy for: " + (resp ? pName : ChatColor.stripColor(pName)));
+        sender.sendMessage(already + "urned " + turned + " social spy for: " + (resp ? pName : ChatColor.stripColor(pName)));
     }
 
 }
