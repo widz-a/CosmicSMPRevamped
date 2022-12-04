@@ -11,7 +11,7 @@ import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;;
+import java.util.Collections;
 
 public class DemotrollCommand extends CosmicCommand {
     public DemotrollCommand() {
@@ -26,10 +26,10 @@ public class DemotrollCommand extends CosmicCommand {
         }
         Player victim = Bukkit.getPlayerExact(args[0]);
         if (victim == null) {
-            noPlayerFound(args[0], player);
+            noPlayerFound(args[0], sender);
             return;
         }
-        demo(victim, player);
+        demo(victim, sender);
     }
 
     private void demo(Player player, CommandSender sender) {
