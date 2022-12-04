@@ -1,19 +1,11 @@
 package withicality.csmp.global.commands;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
-import java.util.List;
 
 public class FakeopCommand extends CosmicCommand {
     public FakeopCommand() {

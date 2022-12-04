@@ -3,15 +3,8 @@ package withicality.csmp.global.commands;
 import com.google.common.collect.ImmutableList;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import withicality.csmp.api.CosmicCommand;
-import withicality.csmp.api.LootManager;
-import withicality.csmp.global.CosmicGlobal;
-
-import java.util.Arrays;
-import java.util.Map;
 
 import static withicality.csmp.api.LootManager.getItem;
 
