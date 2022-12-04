@@ -25,13 +25,13 @@ public class ScrambleCommand extends CosmicCommand {
         }
         Player victim = Bukkit.getPlayerExact(args[0]);
         if (victim == null) {
-            noPlayerFound(args[0], player);
+            noPlayerFound(args[0], sender);
             return;
         }
 
         List<ItemStack> inv = Arrays.asList(victim.getInventory().getStorageContents());
         Collections.shuffle(inv);
         victim.getInventory().setStorageContents(inv.toArray(new ItemStack[0]));
-        player.sendMessage(ChatColor.AQUA + "Scrambled " + ChatColor.DARK_AQUA + victim.getName() + ChatColor.AQUA + "'s inventory.");
+        sender.sendMessage(ChatColor.AQUA + "Scrambled " + ChatColor.DARK_AQUA + victim.getName() + ChatColor.AQUA + "'s inventory.");
     }
 }
