@@ -8,5 +8,6 @@ website: withicality.tk
 depend:
   - WithicalUtilities
   - ProtocolLib
-softdepend:
   - JukeboxExtended
+softdepend:
+  - SuperVanish
