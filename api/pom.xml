@@ -10,18 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>csmp-api</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>withicality</groupId>
-            <artifactId>csmp-provided</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>withicality</groupId>
+            <artifactId>csmp-provided</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+    </dependencies>
 </project>

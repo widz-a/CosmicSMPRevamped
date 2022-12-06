@@ -2,11 +2,13 @@ package me.tajam.jext.config;
 
 import me.tajam.jext.DiscContainer;
 
-public interface ConfigDiscManager {
-    static ConfigDiscManager getInstance() {
-        return null;
+public class ConfigDiscManager {
+    public static ConfigDiscManager getInstance() {
+        return new ConfigDiscManager();
     }
 
-    DiscContainer getDisc(String n);
+    public DiscContainer getDisc(String n){
+        return new DiscContainer();
+    }
 
 }

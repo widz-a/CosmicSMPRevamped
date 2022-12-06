@@ -12,6 +12,7 @@
     <modules>
         <module>global</module>
         <module>api</module>
+        <module>provided</module>
     </modules>
 
     <properties>
