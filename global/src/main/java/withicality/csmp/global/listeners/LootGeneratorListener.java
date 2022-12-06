@@ -5,8 +5,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.LootGenerateEvent;
 import org.bukkit.inventory.ItemStack;
+import withicality.csmp.api.CosmicConfig;
 import withicality.csmp.api.LootManager;
-import withicality.csmp.global.CosmicGlobal;
 
 import java.util.Map;
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class LootGeneratorListener implements Listener {
 
     @EventHandler
     public void event(LootGenerateEvent event) {
-        FileConfiguration config = CosmicGlobal.CONFIG.getCustomConfig("loots");
+        FileConfiguration config = CosmicConfig.getInstance().getCustomConfig("loots");
         for (Map<?, ?> map : config.getMapList("loots")) {
             String namespace = (String) map.get("namespace");
             String type = (String) map.get("type");

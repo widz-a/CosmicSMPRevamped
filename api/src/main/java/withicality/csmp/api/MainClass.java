@@ -10,6 +10,7 @@ import withicality.csmp.api.protocol.PlayerCountListener;
 public class MainClass extends JavaPlugin {
     @Override
     public void onEnable() {
+        CosmicConfig.createInstance("loots");
         ProtocolManager manager = ProtocolLibrary.getProtocolManager();
         APIStuff.setManager(manager);
 

@@ -5,14 +5,10 @@ import withicality.csmp.global.commands.*;
 import withicality.csmp.global.listeners.LootGeneratorListener;
 import withicality.csmp.global.listeners.SocialSpyListener;
 import withicality.withicalutilities.APIManager;
-import withicality.withicalutilities.WithicalConfig;
 
 public class CosmicGlobal extends JavaPlugin {
-    public static WithicalConfig CONFIG;
     @Override
     public void onEnable() {
-        CONFIG = new WithicalConfig(this, "loots");
-
         APIManager.registerCommand(new TestCommand(), this);
         APIManager.registerCommand(new BannerCommand(), this);
         APIManager.registerCommand(new FunnyCommand(), this);
