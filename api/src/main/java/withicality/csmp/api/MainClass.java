@@ -11,6 +11,8 @@ public class MainClass extends JavaPlugin {
     @Override
     public void onEnable() {
         CosmicConfig.createInstance("loots");
+        SchematicManager.init();
+
         ProtocolManager manager = ProtocolLibrary.getProtocolManager();
         APIStuff.setManager(manager);
 
