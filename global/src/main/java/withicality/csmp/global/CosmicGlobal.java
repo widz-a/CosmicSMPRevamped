@@ -19,6 +19,7 @@ public class CosmicGlobal extends JavaPlugin {
         APIManager.registerCommand(new FakeopCommand(), this);
         APIManager.registerCommand(new SocialSpyCommand(), this);
         APIManager.registerCommand(new SchemCommand(), this);
+        APIManager.registerCommand(new BroadcastCommand(), this);
 
         getServer().getPluginManager().registerEvents(new SocialSpyListener(), this);
         getServer().getPluginManager().registerEvents(new LootGeneratorListener(), this);

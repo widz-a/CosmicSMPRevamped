@@ -1,5 +1,5 @@
 name: CosmicSMP-Global
-version: 1.0.1
+version: 1.1.0
 main: withicality.csmp.global.CosmicGlobal
 api-version: 1.19
 authors: [ Withicality ]
