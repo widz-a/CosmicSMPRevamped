@@ -33,9 +33,9 @@ public class SchemCommand extends CosmicCommand {
             return;
         }
         Location loc = player.getLocation();
-        int x = args[1] == null ? loc.getBlockX() : Integer.parseInt(args[1]);
-        int y = args[2] == null ? loc.getBlockY() : Integer.parseInt(args[2]);
-        int z = args[3] == null ? loc.getBlockZ() : Integer.parseInt(args[3]);
+        int x = args.length < 4 ? loc.getBlockX() : Integer.parseInt(args[1]);
+        int y = args.length < 4 ? loc.getBlockY() : Integer.parseInt(args[2]);
+        int z = args.length < 4 ? loc.getBlockZ() : Integer.parseInt(args[3]);
         boolean a = SchematicManager.load(new Location(loc.getWorld(), x, y, z), schem);
         player.sendMessage(a ? ChatColor.GREEN + "Success!" : ChatColor.RED + "Failed!");
     }
