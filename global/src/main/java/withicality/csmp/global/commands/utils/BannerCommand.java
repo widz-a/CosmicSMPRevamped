@@ -1,12 +1,12 @@
-package withicality.csmp.global.commands;
+package withicality.csmp.global.commands.utils;
 
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import withicality.withicalutilities.command.WithicalCommand;
+import withicality.csmp.api.CosmicCommand;
 
-public class BannerCommand extends WithicalCommand {
+public class BannerCommand extends CosmicCommand {
     public BannerCommand() {
         super("banner");
     }

@@ -1,4 +1,4 @@
-package withicality.csmp.global.commands;
+package withicality.csmp.global.commands.troll;
 
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;

@@ -1,4 +1,4 @@
-package withicality.csmp.global.commands;
+package withicality.csmp.global.commands.troll;
 
 import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;

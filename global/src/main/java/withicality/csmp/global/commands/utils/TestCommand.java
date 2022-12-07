@@ -1,4 +1,4 @@
-package withicality.csmp.global.commands;
+package withicality.csmp.global.commands.utils;
 
 import com.google.common.collect.ImmutableList;
 import org.bukkit.ChatColor;

@@ -2,11 +2,17 @@ package withicality.csmp.api;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import withicality.withicalutilities.APIManager;
 import withicality.withicalutilities.command.WithicalCommand;
 
 import java.util.List;
 
 public abstract class CosmicCommand extends WithicalCommand {
+
+    public static void register(CosmicCommand command) {
+        String[] array =  command.getClass().getPackage().getName().split("\\.");
+        APIManager.registerCommand(command, MainClass.getPlugin(MainClass.class), "csmp." + array[array.length - 1]);
+    }
 
     public CosmicCommand(String name, String description, String usageMessage, List<String> aliases, String permission) {
         super(name, description, usageMessage, aliases, permission);

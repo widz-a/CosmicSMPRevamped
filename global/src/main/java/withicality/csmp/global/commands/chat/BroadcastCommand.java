@@ -1,4 +1,4 @@
-package withicality.csmp.global.commands;
+package withicality.csmp.global.commands.chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
