@@ -9,5 +9,6 @@ depend:
   - WithicalUtilities
   - ProtocolLib
   - JukeboxExtended
-softdepend:
+  - WorldEdit
   - SuperVanish
+  - DiscordSRV
