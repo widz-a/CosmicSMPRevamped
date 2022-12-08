@@ -3,7 +3,6 @@ package withicality.csmp.global.commands.troll;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,7 +23,7 @@ public class DemotrollCommand extends CosmicCommand {
             sendUsage(sender);
             return;
         }
-        Player victim = Bukkit.getPlayerExact(args[0]);
+        Player victim = APIStuff.getPlayer(args[0], sender);
         if (victim == null) {
             noPlayerFound(args[0], sender);
             return;

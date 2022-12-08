@@ -1,10 +1,13 @@
 package withicality.csmp.global.commands.utils;
 
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import withicality.csmp.api.CosmicCommand;
+
+import java.util.List;
 
 public class BannerCommand extends CosmicCommand {
     public BannerCommand() {
@@ -24,5 +27,10 @@ public class BannerCommand extends CosmicCommand {
 
         player.getInventory().setHelmet(banner.clone());
         player.getInventory().setItemInMainHand(helmet == null ? new ItemStack(Material.AIR) : helmet.clone());
+    }
+
+    @Override
+    public List<String> tab(CommandSender sender, String[] args) {
+        return ImmutableList.of();
     }
 }

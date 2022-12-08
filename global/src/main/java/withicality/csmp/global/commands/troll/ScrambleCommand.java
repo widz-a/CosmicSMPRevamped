@@ -1,10 +1,10 @@
 package withicality.csmp.global.commands.troll;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class ScrambleCommand extends CosmicCommand {
             sendUsage(sender);
             return;
         }
-        Player victim = Bukkit.getPlayerExact(args[0]);
+        Player victim = APIStuff.getPlayer(args[0], sender);
         if (victim == null) {
             noPlayerFound(args[0], sender);
             return;

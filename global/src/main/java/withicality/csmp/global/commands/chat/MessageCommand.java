@@ -1,8 +1,8 @@
 package withicality.csmp.global.commands.chat;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
 import withicality.csmp.api.MessageManager;
 
@@ -29,7 +29,7 @@ public class MessageCommand extends CosmicCommand {
             return;
         }
 
-        Player receiver = Bukkit.getPlayerExact(args[0]);
+        Player receiver = APIStuff.getPlayer(args[0], player);
         if (receiver == null) {
             noPlayerFound(args[0], player);
             return;

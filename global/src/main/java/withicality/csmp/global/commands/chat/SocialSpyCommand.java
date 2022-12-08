@@ -1,10 +1,10 @@
 package withicality.csmp.global.commands.chat;
 
 import com.google.common.collect.ImmutableList;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
 import withicality.csmp.api.MessageManager;
 import withicality.withicalutilities.entity.WPlayer;
@@ -39,7 +39,7 @@ public class SocialSpyCommand extends CosmicCommand {
             return;
         }
 
-        Player victim = Bukkit.getPlayerExact(args[0]);
+        Player victim = APIStuff.getPlayer(args[0], player);
         if (victim == null) {
             noPlayerFound(args[0], player);
             return;

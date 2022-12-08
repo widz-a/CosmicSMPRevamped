@@ -9,6 +9,8 @@ import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
 import withicality.csmp.api.SchematicManager;
 
+import java.util.List;
+
 public class SchemCommand extends CosmicCommand {
     public SchemCommand() {
         super("schemtest", "Paste a schematic", "/schemtest <schematic file> [<x>] [<y>] [<z>]\n/schemtest list\n", ImmutableList.of(), "csmp.schem");
@@ -38,5 +40,10 @@ public class SchemCommand extends CosmicCommand {
         int z = args.length < 4 ? loc.getBlockZ() : Integer.parseInt(args[3]);
         boolean a = SchematicManager.load(new Location(loc.getWorld(), x, y, z), schem);
         player.sendMessage(a ? ChatColor.GREEN + "Success!" : ChatColor.RED + "Failed!");
+    }
+
+    @Override
+    public List<String> tab(CommandSender sender, String[] args) {
+        return ImmutableList.of();
     }
 }

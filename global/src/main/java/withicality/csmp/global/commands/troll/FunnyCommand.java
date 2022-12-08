@@ -3,7 +3,6 @@ package withicality.csmp.global.commands.troll;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.google.common.collect.ImmutableList;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -41,7 +40,7 @@ public class FunnyCommand extends CosmicCommand {
                 player.sendMessage(APIStuff.HR);
             }
         } else {
-            Player p = Bukkit.getPlayerExact(args[0]);
+            Player p = APIStuff.getPlayer(args[0], player);
             if (p == null) {
                 noPlayerFound(args[0], player);
             } else {
