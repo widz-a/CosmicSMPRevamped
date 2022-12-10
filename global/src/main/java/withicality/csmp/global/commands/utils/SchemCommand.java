@@ -43,7 +43,7 @@ public class SchemCommand extends CosmicCommand {
         int z = Integer.parseInt(args[3]);
 
         boolean a = SchematicManager.load(new Location(Bukkit.getWorld(args[4]), x, y, z), schem);
-        player.sendMessage(a ? ChatColor.GREEN + "Success!" : ChatColor.RED + "Failed!");
+        sender.sendMessage(a ? ChatColor.GREEN + "Success!" : ChatColor.RED + "Failed!");
     }
 
     @Override
