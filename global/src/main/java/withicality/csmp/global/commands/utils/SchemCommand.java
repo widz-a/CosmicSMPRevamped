@@ -1,6 +1,7 @@
 package withicality.csmp.global.commands.utils;
 
 import com.google.common.collect.ImmutableList;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -13,32 +14,35 @@ import java.util.List;
 
 public class SchemCommand extends CosmicCommand {
     public SchemCommand() {
-        super("schemtest", "Paste a schematic", "/schemtest <schematic file> [<x>] [<y>] [<z>]\n/schemtest list\n", ImmutableList.of(), "csmp.schem");
+        super("schemtest", "Paste a schematic", "/schemtest <schematic file> <x> <y> <z> <world>\n/schemtest list\n", ImmutableList.of(), "csmp.schem");
     }
 
     @Override
     public void run(CommandSender sender, Player player, String[] args) {
-        if (!isPlayer(sender)) {
-            sender.sendMessage(getNotPlayerMessage());
-            return;
-        }
         if (args.length == 0) {
             sendUsage(sender);
             return;
         }
 
         String schem = args[0];
+
         if (schem.equalsIgnoreCase("list")) {
-            player.sendMessage(APIStuff.HR);
-            player.sendMessage(String.join("\n", SchematicManager.get()));
-            player.sendMessage(APIStuff.HR);
+            sender.sendMessage(APIStuff.HR);
+            sender.sendMessage(String.join("\n", SchematicManager.get()));
+            sender.sendMessage(APIStuff.HR);
             return;
         }
-        Location loc = player.getLocation();
-        int x = args.length < 4 ? loc.getBlockX() : Integer.parseInt(args[1]);
-        int y = args.length < 4 ? loc.getBlockY() : Integer.parseInt(args[2]);
-        int z = args.length < 4 ? loc.getBlockZ() : Integer.parseInt(args[3]);
-        boolean a = SchematicManager.load(new Location(loc.getWorld(), x, y, z), schem);
+
+        if (args.length < 5) {
+            sendUsage(sender);
+            return;
+        }
+
+        int x = Integer.parseInt(args[1]);
+        int y = Integer.parseInt(args[2]);
+        int z = Integer.parseInt(args[3]);
+
+        boolean a = SchematicManager.load(new Location(Bukkit.getWorld(args[4]), x, y, z), schem);
         player.sendMessage(a ? ChatColor.GREEN + "Success!" : ChatColor.RED + "Failed!");
     }
 
