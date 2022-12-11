@@ -18,7 +18,9 @@ import org.bukkit.Location;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Special thanks to Harry0198 for the tutorial
@@ -26,6 +28,9 @@ import java.util.List;
  */
 public class SchematicManager {
     private final static MainClass plugin = MainClass.getPlugin(MainClass.class);
+
+    private final static HashMap<String, EditSession> undo = new HashMap<>();
+    private final static HashMap<String, EditSession> redo = new HashMap<>();
 
     public static void init() {
         File file = new File(plugin.getDataFolder().getAbsolutePath() + "/schematics");
@@ -45,7 +50,7 @@ public class SchematicManager {
 
         return strings;
     }
-    public static boolean load(Location location, String schem) {
+    public static String load(Location location, String schem) {
         schem = schem.endsWith(".schem") ? schem : schem + ".schem";
 
         try {
@@ -63,11 +68,46 @@ public class SchematicManager {
 
             Operations.complete(operation);
             editSession.close();
-            return true;
+
+            String id = Long.toHexString(System.currentTimeMillis());
+            undo.put(id, editSession);
+
+            return id;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
-
     }
+
+    public static boolean undo(String id) {
+        if (!undo.containsKey(id)) return false;
+
+        EditSession session = undo.get(id);
+        session.undo(session);
+        session.close();
+
+        undo.remove(id, session);
+        redo.put(id, session);
+
+        return true;
+    }
+
+    public static boolean redo(String id) {
+        if (!redo.containsKey(id)) return false;
+
+        EditSession session = redo.get(id);
+        session.redo(session);
+        session.close();
+
+        redo.remove(id, session);
+        undo.put(id, session);
+
+        return true;
+    }
+
+    public static List<String> getIds(String type) {
+        Set<String> a = type.equalsIgnoreCase("undo") ? undo.keySet() : redo.keySet();
+        return new ArrayList<>(a);
+    }
+
 }
