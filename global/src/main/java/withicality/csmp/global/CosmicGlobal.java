@@ -5,6 +5,8 @@ import withicality.csmp.global.commands.chat.BroadcastCommand;
 import withicality.csmp.global.commands.chat.MessageCommand;
 import withicality.csmp.global.commands.chat.ReplyCommand;
 import withicality.csmp.global.commands.chat.SocialSpyCommand;
+import withicality.csmp.global.commands.loop.RunloopCommand;
+import withicality.csmp.global.commands.loop.StoploopCommand;
 import withicality.csmp.global.commands.troll.DemotrollCommand;
 import withicality.csmp.global.commands.troll.FakeopCommand;
 import withicality.csmp.global.commands.troll.FunnyCommand;
@@ -30,6 +32,8 @@ public class CosmicGlobal extends JavaPlugin {
         CosmicCommand.register(new SocialSpyCommand());
         CosmicCommand.register(new SchemCommand());
         CosmicCommand.register(new BroadcastCommand());
+        CosmicCommand.register(new RunloopCommand());
+        CosmicCommand.register(new StoploopCommand());
 
         getServer().getPluginManager().registerEvents(new SocialSpyListener(), this);
         getServer().getPluginManager().registerEvents(new LootGeneratorListener(), this);
