@@ -50,7 +50,8 @@ public class SchematicManager {
 
         return strings;
     }
-    public static String load(Location location, String schem) {
+    public static String load(Location location, String schem, String id) {
+        if (id == null) id = Long.toHexString(System.currentTimeMillis());
         schem = schem.endsWith(".schem") ? schem : schem + ".schem";
 
         try {
@@ -68,8 +69,6 @@ public class SchematicManager {
 
             Operations.complete(operation);
             editSession.close();
-
-            String id = Long.toHexString(System.currentTimeMillis());
             undo.put(id, editSession);
 
             return id;

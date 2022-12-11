@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SchemCommand extends CosmicCommand {
     public SchemCommand() {
-        super("schemtest", "Paste/Load/Undo/Redo a schematic", "/schemtest <schematic file> <x> <y> <z> <world>\n/schemtest list\n/schemtest undo/redo <id>\n", ImmutableList.of(), "csmp.schem");
+        super("schemtest", "Paste/Load/Undo/Redo a schematic", "/schemtest <schematic file> <x> <y> <z> <world> [<id>]\n/schemtest list\n/schemtest undo/redo <id>\n", ImmutableList.of(), "csmp.schem");
     }
 
     @Override
@@ -60,7 +60,7 @@ public class SchemCommand extends CosmicCommand {
         int y = Integer.parseInt(args[2]);
         int z = Integer.parseInt(args[3]);
 
-        String a = SchematicManager.load(new Location(Bukkit.getWorld(args[4]), x, y, z), schem);
+        String a = SchematicManager.load(new Location(Bukkit.getWorld(args[4]), x, y, z), schem, args.length < 6 ? null : args[5]);
 
         if (a != null) {
             TextComponent id = new TextComponent(a);
