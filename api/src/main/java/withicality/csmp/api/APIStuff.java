@@ -20,6 +20,8 @@ public class APIStuff {
 
     public static Player getPlayer(String name, CommandSender sender) {
         Player player = Bukkit.getPlayer(name);
-        return player != null && sender instanceof Player && ((Player) sender).canSee(player) ? player : null;
+        if (player == null) return null;
+        if (!(sender instanceof Player)) return player;
+        return ((Player) sender).canSee(player) ? player : null;
     }
 }
