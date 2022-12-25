@@ -2,28 +2,40 @@ package withicality.csmp.api;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import withicality.withicalutilities.APIManager;
-import withicality.withicalutilities.command.WithicalCommand;
+import org.mineacademy.fo.command.SimpleCommand;
 
-import java.util.List;
+public abstract class CosmicCommand extends SimpleCommand {
 
-public abstract class CosmicCommand extends WithicalCommand {
+    private String[] usag;
 
-    public static void register(CosmicCommand command) {
-        String[] array =  command.getClass().getPackage().getName().split("\\.");
-        APIManager.registerCommand(command, MainClass.getPlugin(MainClass.class), "csmp." + array[array.length - 1]);
+    public CosmicCommand(String name, String description, String usageMessage, String permission) {
+        super(name);
+        String[] array = getClass().getPackage().getName().split("\\.");
+        setLabel("csmp." + array[array.length - 1]);
+        setDescription(description);
+        setPermission(permission);
+
+        usag = new String[]{usageMessage};
     }
 
-    public CosmicCommand(String name, String description, String usageMessage, List<String> aliases, String permission) {
-        super(name, description, usageMessage, aliases, permission);
+    public CosmicCommand(String name, String description, String usageMessage) {
+        super(name);
+        String[] array = getClass().getPackage().getName().split("\\.");
+        setLabel("csmp." + array[array.length - 1]);
+        setDescription(description);
+
+        usag = new String[]{usageMessage};
     }
 
-    public CosmicCommand(String name, String description, String usageMessage, List<String> aliases) {
-        super(name, description, usageMessage, aliases);
+    @Override
+    protected String[] getMultilineUsageMessage() {
+        return usag == null ? super.getMultilineUsageMessage() : usag;
     }
 
     public CosmicCommand(String name) {
         super(name);
+        String[] array = getClass().getPackage().getName().split("\\.");
+        setLabel("csmp." + array[array.length - 1]);
     }
 
     public void sendUsage(CommandSender sender) {
@@ -32,8 +44,8 @@ public abstract class CosmicCommand extends WithicalCommand {
         sender.sendMessage(APIStuff.HR);
     }
 
-    public void noPlayerFound(String player, CommandSender sender) {
-        sender.sendMessage(ChatColor.RED + "No player named " + ChatColor.WHITE + player + ChatColor.RED + " is connected to this server.");
+    public String noPlayerFound(String player) {
+        return ChatColor.RED + "No player named " + ChatColor.WHITE + player + ChatColor.RED + " is connected to this server.";
     }
 
 }

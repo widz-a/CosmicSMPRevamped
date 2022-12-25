@@ -1,35 +1,26 @@
 package withicality.csmp.global.commands.loop;
 
-import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import withicality.csmp.api.CosmicCommand;
 import withicality.csmp.global.CosmicGlobal;
+import withicality.csmp.api.CosmicCommand;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class RunloopCommand extends CosmicCommand {
 
     protected static final HashMap<String, BukkitRunnable> runnables = new HashMap<>();
 
     public RunloopCommand() {
-        super("runloop", "Force console to run a command on loop (<delay> or <period> is equal to <second>*20 (minecraft tick))", "/runloop <id> <delay> <period> <command without />", ImmutableList.of(), "csmp.runloop");
+        super("runloop", "Force console to run a command on loop (<delay> or <period> is equal to <second>*20 (minecraft tick))", "/runloop <id> <delay> <period> <command without />", "csmp.runloop");
+        setMinArguments(4);
     }
 
     @Override
-    public void run(CommandSender sender, Player a, String[] args) {
-        if (args.length < 4) {
-            sendUsage(sender);
-            return;
-        }
-
-        if (runnables.containsKey(args[0])) {
-            sender.sendMessage(ChatColor.RED + "There is already a task running using this id.");
-            return;
-        }
+    protected void onCommand() {
+        checkBoolean(!runnables.containsKey(args[0]), "There is already a task running using this id.");
 
         String command = String.join(" ", args).substring(args[0].length() + args[1].length() + args[2].length() + 3);
         BukkitRunnable runnable = new BukkitRunnable() {
@@ -48,5 +39,10 @@ public class RunloopCommand extends CosmicCommand {
             sendUsage(sender);
             sender.sendMessage(ChatColor.RED + "Make sure <delay> and <period> fields are integer number!");
         }
+    }
+
+    @Override
+    protected List<String> tabComplete() {
+        return NO_COMPLETE;
     }
 }

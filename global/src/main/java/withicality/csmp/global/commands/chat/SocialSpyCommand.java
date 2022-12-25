@@ -1,79 +1,37 @@
 package withicality.csmp.global.commands.chat;
 
-import com.google.common.collect.ImmutableList;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
 import withicality.csmp.api.MessageManager;
-import withicality.withicalutilities.entity.WPlayer;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SocialSpyCommand extends CosmicCommand {
     public SocialSpyCommand() {
-        super("socialspy", "Toggles if you can see msg/mail commands in chat", "/socialspy [player] [on|off]", ImmutableList.of(), "csmp.socialspy");
+        super("socialspy", "Toggles if you can see msg/mail commands in chat", "/socialspy [player] [on|off]", "csmp.socialspy");
     }
 
     @Override
-    public void run(CommandSender sender, Player player, String[] args) {
-        if (!isPlayer(sender)) {
-            sender.sendMessage("You know, you can see what command players are executing, right?");
-            return;
-        }
+    protected void onCommand() {
+        checkConsole();
+        // i 100% will not understand this tmr
+        Player player = (Player) sender;
+        boolean toggle = (args.length == 1 || args.length == 2) && Arrays.asList("on", "off").contains(args[args.length - 1].toLowerCase()) ? args[args.length - 1].equalsIgnoreCase("on") : !MessageManager.containSpies(player);
+        Player victim = args.length > 1 && !Arrays.asList("on", "off").contains(args[0]) ? APIStuff.getPlayer(args[0], player) : player;
 
-        // /socialspy
-        if (args.length == 0) {
-            boolean a = MessageManager.updateSpies(player, !MessageManager.containSpies(player));
-            send(player, player, a);
-            return;
-        }
-
-        // /socialspy [on|off]
-        if (Arrays.asList("on", "off").contains(args[0].toLowerCase())) {
-            boolean a = MessageManager.updateSpies(player, args[0].equalsIgnoreCase("on"));
-            send(player, player, a);
-            return;
-        }
-
-        Player victim = APIStuff.getPlayer(args[0], player);
-        if (victim == null) {
-            noPlayerFound(args[0], player);
-            return;
-        }
-
-        // /socialspy [player]
-        if (args.length == 1) {
-            boolean a = MessageManager.updateSpies(victim, !MessageManager.containSpies(player));
-            send(player, victim, a);
-            return;
-        }
-
-        // /socialspy [player] [on|off]
-        if (!Arrays.asList("on", "off").contains(args[1].toLowerCase())) {
-            sendUsage(player);
-            return;
-        }
-
-        boolean a = MessageManager.updateSpies(victim, args[1].equalsIgnoreCase("on"));
+        boolean a = MessageManager.updateSpies(victim, toggle);
         send(player, victim, a);
-
     }
 
     @Override
-    public List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
-        if (!isPlayer(sender)) {
-            return ImmutableList.of();
-        }
-        List<String> YN = Arrays.asList("on", "off");
-        List<String> players = new ArrayList<>();
-        players.addAll(WPlayer.getPlayersCanBeSeen((Player) sender));
-        players.addAll(YN);
-
-        return args.length == 1 ? players : (args.length == 2 ? YN : ImmutableList.of());
+    protected List<String> tabComplete() {
+        return switch (args.length) {
+            case 1 -> completeLastWord("on", "off", APIStuff.getPlayersCanBeSeen((Player) sender));
+            case 2 -> completeLastWord("on", "off");
+            default -> NO_COMPLETE;
+        };
     }
 
     private void send(Player sender, Player player, boolean resp) {
@@ -82,5 +40,4 @@ public class SocialSpyCommand extends CosmicCommand {
         String pName = ChatColor.DARK_AQUA + player.getName() + ChatColor.AQUA + ".";
         sender.sendMessage(already + "urned " + turned + " social spy for: " + (resp ? pName : ChatColor.stripColor(pName)));
     }
-
 }

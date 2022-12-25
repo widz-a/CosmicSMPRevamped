@@ -1,7 +1,7 @@
 name: CosmicSMP-API
 version: 1.1.0
 main: withicality.csmp.api.MainClass
-api-version: '1.19'
+api-version: 1.19
 authors: [ Withicality ]
 description: Plugin for CosmicSMP
 website: withicality.tk

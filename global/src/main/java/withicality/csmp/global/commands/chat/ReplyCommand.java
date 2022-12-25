@@ -2,53 +2,36 @@ package withicality.csmp.global.commands.chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import withicality.csmp.api.CosmicCommand;
 import withicality.csmp.api.MessageManager;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 public class ReplyCommand extends CosmicCommand {
     public ReplyCommand() {
         super(
-                "reply",
+                "reply|r|rep",
                 "Quickly reply to the last player to message you or show the player you are messaging to.",
-                "/reply [message] (It shows who you are replying to when there is no message)",
-                Arrays.asList("r","rep")
+                "/reply [message] (It shows who you are replying to when there is no message)"
         );
     }
 
     @Override
-    public void run(CommandSender sender, Player player, String[] args) {
-        if (player == null) {
-            sender.sendMessage(getNotPlayerMessage());
-            return;
-        }
+    protected void onCommand() {
+        checkConsole();
 
+        Player player = (Player) sender;
         UUID uuid = MessageManager.getReplyTo(player);
-
-        if (uuid == null) {
-            player.sendMessage(ChatColor.RED + "You have nobody to reply to.");
-            return;
-        }
+        checkNotNull(uuid, "You have nobody to reply to.");
 
         String name = Bukkit.getOfflinePlayer(uuid).getName();
-
-        if (args.length == 0) {
-            player.sendMessage(ChatColor.AQUA + "You are currently messaging " + ChatColor.DARK_AQUA + name + ChatColor.AQUA + ".");
-            return;
-        }
+        checkArgs(1, ChatColor.AQUA + "You are currently messaging " + ChatColor.DARK_AQUA + name + ChatColor.AQUA + ".");
 
         Player receiver = Bukkit.getPlayer(uuid);
-        if (receiver == null) {
-            noPlayerFound(name, player);
-            return;
-        }
+        checkNotNull(receiver, noPlayerFound(name));
 
         String message = String.join(" ", args);
         MessageManager.send(player, receiver, message);
-
     }
 }

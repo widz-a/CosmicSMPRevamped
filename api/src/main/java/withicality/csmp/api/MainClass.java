@@ -3,13 +3,14 @@ package withicality.csmp.api;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketListener;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.mineacademy.fo.plugin.SimplePlugin;
 import withicality.csmp.api.listeners.PlayerVanishListener;
 import withicality.csmp.api.protocol.ServerListListener;
 
-public class MainClass extends JavaPlugin {
+public class MainClass extends SimplePlugin {
+
     @Override
-    public void onEnable() {
+    protected void onPluginStart() {
         CosmicConfig.createInstance("loots");
         SchematicManager.init();
 
@@ -22,8 +23,7 @@ public class MainClass extends JavaPlugin {
             manager.removePacketListener(listener);
         }
 
-        getServer().getPluginManager().registerEvents(new PlayerVanishListener(), this);
+        registerEvents(new PlayerVanishListener());
         manager.addPacketListener(new ServerListListener());
-
     }
 }

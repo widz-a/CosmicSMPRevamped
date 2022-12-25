@@ -1,8 +1,6 @@
 package withicality.csmp.global.commands.utils;
 
-import com.google.common.collect.ImmutableList;
 import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import withicality.csmp.api.CosmicCommand;
@@ -15,22 +13,21 @@ public class BannerCommand extends CosmicCommand {
     }
 
     @Override
-    public void run(CommandSender sender, Player player, String[] strings) {
-        if (player == null) {
-            sender.sendMessage(getNotPlayerMessage());
-            return;
-        }
+    public void onCommand() {
+        checkConsole();
+        Player player = (Player) sender;
+
         ItemStack banner = player.getInventory().getItemInMainHand();
         ItemStack helmet = player.getInventory().getHelmet();
 
-        if (!banner.getType().toString().endsWith("_BANNER")) return;
+        checkBoolean(banner.getType().toString().endsWith("_BANNER"), "You are not holding the banner");
 
         player.getInventory().setHelmet(banner.clone());
         player.getInventory().setItemInMainHand(helmet == null ? new ItemStack(Material.AIR) : helmet.clone());
     }
 
     @Override
-    public List<String> tab(CommandSender sender, String[] args) {
-        return ImmutableList.of();
+    protected List<String> tabComplete() {
+        return NO_COMPLETE;
     }
 }
