@@ -33,6 +33,7 @@ public class CosmicGlobal extends SimplePlugin {
         registerCommand(new BroadcastCommand());
         registerCommand(new RunloopCommand());
         registerCommand(new StoploopCommand());
+
         registerEvents(new SocialSpyListener());
         registerEvents(new LootGeneratorListener());
     }
