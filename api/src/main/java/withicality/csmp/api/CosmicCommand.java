@@ -10,8 +10,6 @@ public abstract class CosmicCommand extends SimpleCommand {
 
     public CosmicCommand(String name, String description, String usageMessage, String permission) {
         super(name);
-        String[] array = getClass().getPackage().getName().split("\\.");
-        setLabel("csmp." + array[array.length - 1]);
         setDescription(description);
         setPermission(permission);
 
@@ -20,12 +18,12 @@ public abstract class CosmicCommand extends SimpleCommand {
 
     public CosmicCommand(String name, String description, String usageMessage) {
         super(name);
-        String[] array = getClass().getPackage().getName().split("\\.");
-        setLabel("csmp." + array[array.length - 1]);
         setDescription(description);
+        setPermission(null);
 
         usag = new String[]{usageMessage};
     }
+
 
     @Override
     protected String[] getMultilineUsageMessage() {
@@ -34,8 +32,6 @@ public abstract class CosmicCommand extends SimpleCommand {
 
     public CosmicCommand(String name) {
         super(name);
-        String[] array = getClass().getPackage().getName().split("\\.");
-        setLabel("csmp." + array[array.length - 1]);
     }
 
     public void sendUsage(CommandSender sender) {
