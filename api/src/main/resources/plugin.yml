@@ -6,7 +6,6 @@ authors: [ Withicality ]
 description: Plugin for CosmicSMP
 website: withicality.tk
 depend:
-  - WithicalUtilities
   - ProtocolLib
   - JukeboxExtended
   - WorldEdit

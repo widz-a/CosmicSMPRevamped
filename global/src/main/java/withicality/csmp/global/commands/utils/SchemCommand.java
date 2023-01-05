@@ -8,7 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
-import withicality.csmp.api.SchematicManager;
+import withicality.csmp.api.manager.SchematicManager;
 
 import java.util.Arrays;
 import java.util.List;

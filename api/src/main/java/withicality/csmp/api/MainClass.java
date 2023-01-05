@@ -4,14 +4,16 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketListener;
 import org.mineacademy.fo.plugin.SimplePlugin;
+import withicality.csmp.api.listeners.OPlayerListener;
 import withicality.csmp.api.listeners.PlayerVanishListener;
+import withicality.csmp.api.manager.SchematicManager;
 import withicality.csmp.api.protocol.ServerListListener;
 
 public class MainClass extends SimplePlugin {
 
     @Override
     protected void onPluginStart() {
-        CosmicConfig.createInstance("loots");
+        CosmicConfig.createInstance("loots", "storageplayerdata21", "storageuuiddata21");
         SchematicManager.init();
 
         ProtocolManager manager = ProtocolLibrary.getProtocolManager();
@@ -24,6 +26,8 @@ public class MainClass extends SimplePlugin {
         }
 
         registerEvents(new PlayerVanishListener());
+        registerEvents(new OPlayerListener());
+
         manager.addPacketListener(new ServerListListener());
     }
 }

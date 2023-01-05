@@ -1,4 +1,4 @@
-package withicality.csmp.api;
+package withicality.csmp.api.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

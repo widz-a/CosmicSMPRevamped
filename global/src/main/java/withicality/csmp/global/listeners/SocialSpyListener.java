@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import withicality.csmp.api.MessageManager;
+import withicality.csmp.api.manager.MessageManager;
 
 import java.util.UUID;
 

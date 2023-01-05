@@ -1,4 +1,4 @@
-package withicality.csmp.api;
+package withicality.csmp.api.manager;
 
 import com.google.common.collect.ImmutableList;
 import com.sk89q.worldedit.EditSession;
@@ -14,6 +14,7 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
 import org.bukkit.Location;
+import withicality.csmp.api.MainClass;
 
 import java.io.File;
 import java.io.FileInputStream;

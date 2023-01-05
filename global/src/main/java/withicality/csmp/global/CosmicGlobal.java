@@ -15,6 +15,7 @@ import withicality.csmp.global.commands.troll.ScrambleCommand;
 import withicality.csmp.global.commands.utils.BannerCommand;
 import withicality.csmp.global.commands.utils.SchemCommand;
 import withicality.csmp.global.listeners.LootGeneratorListener;
+import withicality.csmp.global.commands.teleportation.TPOfflineCommand;
 
 public class CosmicGlobal extends SimplePlugin {
 
@@ -33,6 +34,7 @@ public class CosmicGlobal extends SimplePlugin {
         registerCommand(new BroadcastCommand());
         registerCommand(new RunloopCommand());
         registerCommand(new StoploopCommand());
+        registerCommand(new TPOfflineCommand());
 
         registerEvents(new SocialSpyListener());
         registerEvents(new LootGeneratorListener());

@@ -3,7 +3,7 @@ package withicality.csmp.global.commands.chat;
 import org.bukkit.entity.Player;
 import withicality.csmp.api.APIStuff;
 import withicality.csmp.api.CosmicCommand;
-import withicality.csmp.api.MessageManager;
+import withicality.csmp.api.manager.MessageManager;
 
 public class MessageCommand extends CosmicCommand {
     public MessageCommand() {

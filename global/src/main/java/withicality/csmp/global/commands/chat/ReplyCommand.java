@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import withicality.csmp.api.CosmicCommand;
-import withicality.csmp.api.MessageManager;
+import withicality.csmp.api.manager.MessageManager;
 
 import java.util.UUID;
 
