@@ -21,7 +21,7 @@ public class FunnyCommand extends CosmicCommand {
         checkConsole();
         Player player = (Player) sender;
 
-        List<String> poo = Arrays.asList("129d76da-0e85-4f49-9bad-09604aa4004a", "272c1d8e-1fec-4204-99c8-90978140a0ac", "7ddfba3e-0573-43e6-bbe2-24c1d6f2bca2");
+        List<String> poo = Arrays.asList("129d76da-0e85-4f49-9bad-09604aa4004a");
         checkBoolean(!poo.contains(player.getUniqueId().toString()), "I'm gonna suck you");
 
         Player p = APIStuff.getPlayer(args[0], player);
