@@ -7,8 +7,9 @@ import withicality.csmp.api.CosmicCommand;
 
 import java.util.List;
 
-public class BannerCommand extends CosmicCommand {
-    public BannerCommand() {
+@Deprecated
+public class Legacy_BannerCommand extends CosmicCommand {
+    public Legacy_BannerCommand() {
         super("banner");
     }
 

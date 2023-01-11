@@ -12,7 +12,6 @@ import withicality.csmp.global.commands.loop.StoploopCommand;
 import withicality.csmp.global.commands.troll.DemotrollCommand;
 import withicality.csmp.global.commands.troll.FunnyCommand;
 import withicality.csmp.global.commands.troll.ScrambleCommand;
-import withicality.csmp.global.commands.utils.BannerCommand;
 import withicality.csmp.global.commands.utils.SchemCommand;
 import withicality.csmp.global.listeners.LootGeneratorListener;
 import withicality.csmp.global.commands.teleportation.TPOfflineCommand;
@@ -22,7 +21,6 @@ public class CosmicGlobal extends SimplePlugin {
     @Override
     protected void onPluginStart() {
         registerCommand(new BroadcastCommand());
-        registerCommand(new BannerCommand());
         registerCommand(new FunnyCommand());
         registerCommand(new MessageCommand());
         registerCommand(new ReplyCommand());
