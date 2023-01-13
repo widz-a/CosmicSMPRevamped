@@ -6,8 +6,11 @@ import com.comphenix.protocol.events.PacketListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.mineacademy.fo.plugin.SimplePlugin;
+import withicality.csmp.commands.chat.power.PowerCommand;
 import withicality.csmp.events.PlayerUpdateEvent;
 import withicality.csmp.listeners.*;
+import withicality.csmp.listeners.powers.Check1;
+import withicality.csmp.listeners.powers.Check2;
 import withicality.csmp.manager.ConfigManager;
 import withicality.csmp.manager.SchematicManager;
 import withicality.csmp.commands.chat.BroadcastCommand;
@@ -63,12 +66,15 @@ public class CosmicPlugin extends SimplePlugin {
         registerCommand(new RunloopCommand());
         registerCommand(new StoploopCommand());
         registerCommand(new TPOfflineCommand());
+        registerCommand(new PowerCommand());
 
         registerEvents(new SocialSpyListener());
-        //registerEvents(new Legacy_LootGeneratorListener());
         registerEvents(new PlayerVanishListener());
         registerEvents(new OPlayerListener());
         registerEvents(new APIListener());
+
+        registerEvents(new Check1());
+        registerEvents(new Check2());
 
         manager.addPacketListener(new ServerListListener());
     }
