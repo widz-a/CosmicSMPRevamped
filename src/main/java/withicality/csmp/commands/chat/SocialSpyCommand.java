@@ -7,6 +7,7 @@ import withicality.csmp.CosmicCommand;
 import withicality.csmp.manager.MessageManager;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class SocialSpyCommand extends CosmicCommand {
     public SocialSpyCommand() {
@@ -18,8 +19,8 @@ public class SocialSpyCommand extends CosmicCommand {
         checkConsole();
         // i 100% will not understand this tmr
         Player player = (Player) sender;
-        boolean toggle = (args.length == 1 || args.length == 2) && Arrays.asList("on", "off").contains(args[args.length - 1].toLowerCase()) ? args[args.length - 1].equalsIgnoreCase("on") : !MessageManager.containSpies(player);
-        Player victim = args.length > 1 && !Arrays.asList("on", "off").contains(args[0]) ? PlayerManager.getPlayer(args[0], player) : player;
+        boolean toggle = (args.length == 1 || args.length == 2) && Arrays.asList("on", "off").contains(args[args.length - 1].toLowerCase(Locale.ROOT)) ? args[args.length - 1].equalsIgnoreCase("on") : !MessageManager.containSpies(player);
+        Player victim = args.length > 1 && !Arrays.asList("on", "off").contains(args[0].toLowerCase(Locale.ROOT)) ? PlayerManager.getPlayer(args[0], player) : player;
 
         boolean a = MessageManager.updateSpies(victim, toggle);
         send(player, victim, a);

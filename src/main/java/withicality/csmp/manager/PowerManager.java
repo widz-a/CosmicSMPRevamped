@@ -1,42 +1,70 @@
 package withicality.csmp.manager;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import withicality.csmp.CosmicPlugin;
 import withicality.csmp.enums.Power;
 
+import java.io.IOException;
 import java.util.*;
 
 public class PowerManager {
-    private static final Map<Power, Map<UUID, List<World>>> powers = new HashMap<>();
+    public static final String CONFIG_NAME = "storagepower21";
+    private static FileConfiguration config;
 
-    static {
-        for (Power power : Power.values()) {
-            powers.put(power, new HashMap<>());
-        }
+    public static void init() {
+        load();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    save();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.runTaskTimerAsynchronously(CosmicPlugin.getInstance(), 5*60*20, 5*60*20);
+    }
+
+    public static void save() throws IOException {
+        ConfigManager.getInstance().save(CONFIG_NAME);
+        Bukkit.broadcast(ChatColor.AQUA + "Power config saved.", "csmp.power");
+    }
+
+    public static void load() {
+        ConfigManager.getInstance().reloadConfig(CONFIG_NAME);
+        config = ConfigManager.getInstance().getCustomConfig(CONFIG_NAME);
+        Bukkit.broadcast(ChatColor.AQUA + "Power config loaded.", "csmp.power");
     }
 
     public static boolean hasPower(Power power, OfflinePlayer player, World world) {
-        return powers.get(power).get(player.getUniqueId()) != null && powers.get(power).get(player.getUniqueId()).contains(world);
+        List<String> list = config.getStringList(getPath(power, player.getUniqueId()));
+        return list.contains(world.getName());
     }
 
     public static boolean enable(Power power, OfflinePlayer player, World world) {
         if (hasPower(power, player, world)) return false;
-        List<World> w = powers.get(power).get(player.getUniqueId());
-        List<World> worlds = w == null ? new ArrayList<>() : w;
-        worlds.add(world);
-        powers.get(power).put(player.getUniqueId(), worlds);
+
+        List<String> list = config.getStringList(getPath(power, player.getUniqueId()));
+        list.add(world.getName());
+        config.set(getPath(power, player.getUniqueId()), list);
         return true;
     }
 
     public static boolean disable(Power power, OfflinePlayer player, World world) {
         if (!hasPower(power, player, world)) return false;
-        List<World> worlds = powers.get(power).get(player.getUniqueId());
-        worlds.remove(world);
-        powers.get(power).remove(player.getUniqueId(), worlds);
+
+        List<String> list = config.getStringList(getPath(power, player.getUniqueId()));
+        list.remove(world.getName());
+        config.set(getPath(power, player.getUniqueId()), list);
         return true;
     }
 
@@ -46,6 +74,9 @@ public class PowerManager {
         return true;
     }
 
+    private static String getPath(Power power, UUID uuid) {
+        return power.name() + "." + uuid.toString();
+    }
     public static abstract class BasedListener implements Listener {
 
         private final Power power;

@@ -12,6 +12,7 @@ import withicality.csmp.manager.SchematicManager;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class SchemCommand extends CosmicCommand {
     public SchemCommand() {
@@ -61,7 +62,7 @@ public class SchemCommand extends CosmicCommand {
 
         if (length == 1) return completeLastWord(SchematicManager.get(), "undo", "redo", "list");
 
-        if (length >= 2 && Arrays.asList("undo", "redo", "list").contains(args[0])) {
+        if (length >= 2 && Arrays.asList("undo", "redo", "list").contains(args[0].toLowerCase(Locale.ROOT))) {
             if (args[0].equalsIgnoreCase("list") || length > 2) return NO_COMPLETE;
             if (args[0].equalsIgnoreCase("undo") || args[0].equalsIgnoreCase("redo")) return SchematicManager.getIds(args[0]);
         }
