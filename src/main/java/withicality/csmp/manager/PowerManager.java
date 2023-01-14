@@ -69,9 +69,7 @@ public class PowerManager {
     }
 
     public static boolean toggle(Power power, OfflinePlayer player, World world) {
-        if (hasPower(power, player, world)) disable(power, player, world);
-        else                                enable (power, player, world);
-        return true;
+        return hasPower(power, player, world) ? disable(power, player, world) : enable(power, player, world);
     }
 
     private static String getPath(Power power, UUID uuid) {

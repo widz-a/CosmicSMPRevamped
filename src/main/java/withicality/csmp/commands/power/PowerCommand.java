@@ -52,8 +52,11 @@ public class PowerCommand extends CosmicCommand {
 
             Method method = PowerManager.class.getDeclaredMethod(args[0].toUpperCase(Locale.ROOT), Power.class, OfflinePlayer.class, World.class);
             for (Power power : powers) {
+                if (power == null) continue;
                 for (OfflinePlayer offline : players) {
+                    if (offline == null) continue; //just in case...
                     for (World world : worlds) {
+                        if (world == null) continue;
                         boolean c = (boolean) method.invoke(boolean.class, power, offline, world);
                         if (c) completed++;
                     }
