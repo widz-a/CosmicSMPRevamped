@@ -4,14 +4,14 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import withicality.csmp.CosmicPlugin;
 import withicality.csmp.manager.ConfigManager;
 
 import java.io.IOException;
 
-public class OPlayerListener implements Listener {
+public class OPlayerListener extends CosmicPlugin.CosmicListener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) throws IOException {

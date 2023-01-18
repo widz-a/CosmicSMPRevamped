@@ -1,9 +1,7 @@
 package withicality.csmp.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
@@ -11,15 +9,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.mineacademy.fo.ReflectionUtil;
+import withicality.csmp.CosmicPlugin;
 import withicality.csmp.enums.Power;
 import withicality.csmp.manager.power.HotbarManager;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class HotbarPowerListener implements Listener {
+public class HotbarPowerListener extends CosmicPlugin.CosmicListener {
     Map<UUID, Integer> map = new HashMap<>();
     @EventHandler
     public void close(InventoryCloseEvent event) {

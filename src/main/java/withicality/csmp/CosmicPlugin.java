@@ -5,32 +5,18 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.mineacademy.fo.ReflectionUtil;
 import org.mineacademy.fo.plugin.SimplePlugin;
-import withicality.csmp.commands.power.PowerCommand;
-import withicality.csmp.commands.utils.TestCommand;
 import withicality.csmp.events.PlayerUpdateEvent;
-import withicality.csmp.listeners.*;
-import withicality.csmp.listeners.powers.Check1;
-import withicality.csmp.listeners.powers.Check2;
 import withicality.csmp.manager.ConfigManager;
 import withicality.csmp.manager.power.HotbarManager;
 import withicality.csmp.manager.power.PowerManager;
 import withicality.csmp.manager.SchematicManager;
-import withicality.csmp.commands.chat.BroadcastCommand;
-import withicality.csmp.commands.chat.SocialSpyCommand;
-import withicality.csmp.commands.loop.RunloopCommand;
-import withicality.csmp.commands.troll.FakeopCommand;
-import withicality.csmp.commands.chat.MessageCommand;
-import withicality.csmp.commands.chat.ReplyCommand;
-import withicality.csmp.commands.loop.StoploopCommand;
-import withicality.csmp.commands.troll.DemotrollCommand;
-import withicality.csmp.commands.troll.FunnyCommand;
-import withicality.csmp.commands.troll.ScrambleCommand;
-import withicality.csmp.commands.utils.SchemCommand;
-import withicality.csmp.commands.teleportation.TPOfflineCommand;
 import withicality.csmp.protocol.ServerListListener;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class CosmicPlugin extends SimplePlugin {
     private static ProtocolManager manager;
@@ -60,31 +46,13 @@ public class CosmicPlugin extends SimplePlugin {
             manager.removePacketListener(listener);
         }
 
-        registerCommand(new BroadcastCommand());
-        registerCommand(new FunnyCommand());
-        registerCommand(new MessageCommand());
-        registerCommand(new ReplyCommand());
-        registerCommand(new DemotrollCommand());
-        registerCommand(new ScrambleCommand());
-        registerCommand(new FakeopCommand());
-        registerCommand(new SocialSpyCommand());
-        registerCommand(new SchemCommand());
-        registerCommand(new BroadcastCommand());
-        registerCommand(new RunloopCommand());
-        registerCommand(new StoploopCommand());
-        registerCommand(new TPOfflineCommand());
-        registerCommand(new PowerCommand());
-
-        registerCommand(new TestCommand());
-
-        registerEvents(new SocialSpyListener());
-        registerEvents(new PlayerVanishListener());
-        registerEvents(new OPlayerListener());
-        registerEvents(new APIListener());
-        registerEvents(new HotbarPowerListener());
-
-        registerEvents(new Check1());
-        registerEvents(new Check2());
+        try {
+            ReflectionUtil.getClasses(this, Class.forName("withicality.csmp.CosmicCommand")).stream().filter(x -> !x.getSimpleName().startsWith("Legacy_")).forEach(x -> registerCommand((CosmicCommand) newInstance(x)));
+            ReflectionUtil.getClasses(this, Class.forName("withicality.csmp.CosmicPlugin$CosmicListener")).stream().filter(x -> !x.getSimpleName().startsWith("Legacy_")).forEach(x -> registerEvents((Listener) newInstance(x)));
+            //ReflectionUtil.getClasses(this, Class.forName("com.comphenix.protocol.events.PacketAdapter")).stream().filter(x -> !x.getSimpleName().startsWith("Legacy_")).forEach(x -> manager.addPacketListener((PacketAdapter) newInstance(x)));
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         manager.addPacketListener(new ServerListListener());
     }
@@ -98,4 +66,16 @@ public class CosmicPlugin extends SimplePlugin {
             throw new RuntimeException(e);
         }
     }
+
+    private Object newInstance(Class<?> clazz) {
+        try {
+            return clazz.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            displayError0(e);
+            setEnabled(false);
+            return null;
+        }
+    }
+
+    public static abstract class CosmicListener implements Listener { }
 }

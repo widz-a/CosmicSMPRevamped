@@ -4,12 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import withicality.csmp.CosmicPlugin;
 import withicality.csmp.manager.MessageManager;
 
 import java.util.UUID;
 
-public class SocialSpyListener implements Listener {
+public class SocialSpyListener extends CosmicPlugin.CosmicListener {
     @EventHandler
     public void onSussy(MessageManager.MessageEvent event) {
         String message = ChatColor.translateAlternateColorCodes('&', "" +

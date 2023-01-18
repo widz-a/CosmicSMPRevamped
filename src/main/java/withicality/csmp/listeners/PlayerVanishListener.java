@@ -8,14 +8,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import withicality.csmp.CosmicPlugin;
 import withicality.csmp.events.PlayerUpdateEvent;
 import withicality.csmp.manager.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerVanishListener implements Listener {
+public class PlayerVanishListener extends CosmicPlugin.CosmicListener {
     @EventHandler
     public void onVanish(PlayerHideEvent event) {
         if (event.isSilent()) return;

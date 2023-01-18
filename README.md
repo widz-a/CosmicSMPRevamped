@@ -8,6 +8,7 @@
 
 ## Dependency used
 - [Paper](https://papermc.io): Obviously.
+- [Foundation](https://github.com/kangarko/foundation/): Bootstrapping lib.
 - [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/): Deals with packet stuff.
 - [SuperVanish](https://github.com/LeonMangler/SuperVanish): SuperVanish related features
 - [WorldEdit](https://github.com/enginehub/worldedit): /schemtest
