@@ -3,7 +3,7 @@ package withicality.csmp.listeners.powers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import withicality.csmp.enums.Power;
-import withicality.csmp.manager.PowerManager;
+import withicality.csmp.manager.power.PowerManager;
 
 public class Check1 extends PowerManager.BasedListener {
     public Check1() {

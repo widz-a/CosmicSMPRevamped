@@ -1,4 +1,4 @@
-package withicality.csmp.manager;
+package withicality.csmp.manager.power;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import withicality.csmp.CosmicPlugin;
 import withicality.csmp.enums.Power;
+import withicality.csmp.manager.ConfigManager;
 
 import java.io.IOException;
 import java.util.*;
@@ -46,11 +47,11 @@ public class PowerManager {
     }
 
     public static boolean hasPower(Power power, OfflinePlayer player, World world) {
-        List<String> list = config.getStringList(getPath(power, player.getUniqueId()));
-        return list.contains(world.getName());
+        return power.equals(Power.NOT_SELECTED) || config.getStringList(getPath(power, player.getUniqueId())).contains(world.getName());
     }
 
     public static boolean enable(Power power, OfflinePlayer player, World world) {
+        if (power.equals(Power.NOT_SELECTED)) return false;
         if (hasPower(power, player, world)) return false;
 
         List<String> list = config.getStringList(getPath(power, player.getUniqueId()));
@@ -60,6 +61,7 @@ public class PowerManager {
     }
 
     public static boolean disable(Power power, OfflinePlayer player, World world) {
+        if (power.equals(Power.NOT_SELECTED)) return false;
         if (!hasPower(power, player, world)) return false;
 
         List<String> list = config.getStringList(getPath(power, player.getUniqueId()));

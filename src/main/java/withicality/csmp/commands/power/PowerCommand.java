@@ -8,7 +8,8 @@ import org.mineacademy.fo.ReflectionUtil;
 import withicality.csmp.CosmicCommand;
 import withicality.csmp.enums.Power;
 import withicality.csmp.manager.OfflinePlayerManager;
-import withicality.csmp.manager.PowerManager;
+import withicality.csmp.manager.power.HotbarManager;
+import withicality.csmp.manager.power.PowerManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -37,7 +38,8 @@ public class PowerCommand extends CosmicCommand {
 
         try {
             if (Arrays.asList("save", "load").contains(args[0].toLowerCase(Locale.ROOT))) {
-                PowerManager.class.getDeclaredMethod(args[0].toUpperCase(Locale.ROOT)).invoke(null);
+                PowerManager.class.getDeclaredMethod(args[0].toLowerCase(Locale.ROOT)).invoke(null);
+                HotbarManager.class.getDeclaredMethod(args[0].toLowerCase(Locale.ROOT)).invoke(null);
                 sender.sendMessage("ok");
                 return;
             }
@@ -50,7 +52,7 @@ public class PowerCommand extends CosmicCommand {
             int completed = 0;
             int tasks = powers.length * players.length * worlds.length;
 
-            Method method = PowerManager.class.getDeclaredMethod(args[0].toUpperCase(Locale.ROOT), Power.class, OfflinePlayer.class, World.class);
+            Method method = PowerManager.class.getDeclaredMethod(args[0].toLowerCase(Locale.ROOT), Power.class, OfflinePlayer.class, World.class);
             for (Power power : powers) {
                 if (power == null) continue;
                 for (OfflinePlayer offline : players) {
@@ -75,7 +77,7 @@ public class PowerCommand extends CosmicCommand {
 
         return switch (args.length) {
             case 1 -> completeLastWord("enable", "disable", "toggle", "save", "load");
-            case 2 -> completeLastWord(Power.values(), "*");
+            case 2 -> completeLastWord(Power.actualValues(), "*");
             case 3 -> completeLastWord(OfflinePlayerManager.getOfflinePlayersS(), "*", "**");
             case 4 -> completeLastWordWorldNames();
             default -> NO_COMPLETE;

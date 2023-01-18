@@ -7,12 +7,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.mineacademy.fo.plugin.SimplePlugin;
 import withicality.csmp.commands.power.PowerCommand;
+import withicality.csmp.commands.utils.TestCommand;
 import withicality.csmp.events.PlayerUpdateEvent;
 import withicality.csmp.listeners.*;
 import withicality.csmp.listeners.powers.Check1;
 import withicality.csmp.listeners.powers.Check2;
 import withicality.csmp.manager.ConfigManager;
-import withicality.csmp.manager.PowerManager;
+import withicality.csmp.manager.power.HotbarManager;
+import withicality.csmp.manager.power.PowerManager;
 import withicality.csmp.manager.SchematicManager;
 import withicality.csmp.commands.chat.BroadcastCommand;
 import withicality.csmp.commands.chat.SocialSpyCommand;
@@ -28,6 +30,8 @@ import withicality.csmp.commands.utils.SchemCommand;
 import withicality.csmp.commands.teleportation.TPOfflineCommand;
 import withicality.csmp.protocol.ServerListListener;
 
+import java.io.IOException;
+
 public class CosmicPlugin extends SimplePlugin {
     private static ProtocolManager manager;
     public static ProtocolManager getProtocolManager() {
@@ -36,9 +40,10 @@ public class CosmicPlugin extends SimplePlugin {
 
     @Override
     protected void onPluginStart() {
-        ConfigManager.createInstance("storageplayerdata21", "storageuuiddata21", "storagepower21");
+        ConfigManager.createInstance("storageplayerdata21", "storageuuiddata21", "storagepower21", "storagehotbar21");
         SchematicManager.init();
         PowerManager.init();
+        HotbarManager.init();
 
         manager = ProtocolLibrary.getProtocolManager();
 
@@ -70,14 +75,27 @@ public class CosmicPlugin extends SimplePlugin {
         registerCommand(new TPOfflineCommand());
         registerCommand(new PowerCommand());
 
+        registerCommand(new TestCommand());
+
         registerEvents(new SocialSpyListener());
         registerEvents(new PlayerVanishListener());
         registerEvents(new OPlayerListener());
         registerEvents(new APIListener());
+        registerEvents(new HotbarPowerListener());
 
         registerEvents(new Check1());
         registerEvents(new Check2());
 
         manager.addPacketListener(new ServerListListener());
+    }
+
+    @Override
+    protected void onPluginStop() {
+        try {
+            PowerManager.save();
+            HotbarManager.save();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package withicality.csmp.commands.utils;
 
+import org.bukkit.entity.Player;
 import withicality.csmp.CosmicCommand;
+import withicality.csmp.manager.power.HotbarManager;
 
 public class TestCommand extends CosmicCommand {
     public TestCommand() {
@@ -9,6 +11,8 @@ public class TestCommand extends CosmicCommand {
 
     @Override
     protected void onCommand() {
-        sender.sendMessage("unused");
+        checkConsole();
+        Player player = (Player) sender;
+        player.openInventory(HotbarManager.getInventory(player));
     }
 }
