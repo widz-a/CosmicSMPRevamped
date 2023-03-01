@@ -1,10 +1,7 @@
-# CosmicSMP Revamped Plugin
-~~Now that powers dont exist on the main world anymore, I have decided to split it into 2 3 plugins,~~
-- ~~**API:** Consists of api stuff blah blah, they do some work that Global and Lore depend on.~~
-- ~~**Global:** Codes for command and stuff.~~
-- ~~**Lore:** _(Not yet implemented)._ Powers n stuff~~
+# CosmicSMP Plugin
 
-### Now unified into 1 singular plugin!
+## What is this?
+This is a Paper plugin coded by Withicality used for a minecraft SMP owned by CosmicAnimations. (CosmicSMP)
 
 ## Dependency used
 - [Paper](https://papermc.io): Obviously.
@@ -13,9 +10,7 @@
 - [SuperVanish](https://github.com/LeonMangler/SuperVanish): SuperVanish related features
 - [WorldEdit](https://github.com/enginehub/worldedit): /schemtest
 - [DiscordSRV](https://github.com/DiscordSRV/DiscordSRV): Send join/leave message when staff uses /vanish
-<!-- - [GuardianBeam](https://github.com/SkytAsul/GuardianBeam): For [Aether's power](../master/src/main/java/tk/itswithermc/cosmicsmp/listeners/powers/AetherListener.java)-->
+<!-- - [GuardianBeam](https://github.com/SkytAsul/GuardianBeam): For [Aether's power](../master/src/main/java/tk/itswithermc/cosmicsmp/listeners/powers/AetherListener.java) //Used in the old plugin.-->
 ## More info:
-- ~~The source code of this plugin was uploaded because this is now discontinued starting March 3rd, 2022.~~
-- ~~The main purpose of this repository is for members to see the source code as it's not yet available for editing cuz WithicalUtilities isn't out yet. (Will update when it does)~~ You can now contribute to this plugin by using pull requests.
-- roblox sex
+- If you have any suggestions to this plugin, feel free to pull up a request.
 - prest is mega gay!

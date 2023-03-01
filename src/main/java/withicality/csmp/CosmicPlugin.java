@@ -20,13 +20,25 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CosmicPlugin extends SimplePlugin {
     private static ProtocolManager manager;
+    //private static BukkitAudiences adventure;
+
     public static ProtocolManager getProtocolManager() {
         return manager;
     }
 
+    /*public static BukkitAudiences adventure() {
+        if (adventure == null) throw new IllegalStateException(("Tried to access Adventure when the plugin is disabled"));
+        return adventure;
+    }
+
+    private static void adventure(JavaPlugin plugin) {
+        adventure = BukkitAudiences.create(plugin);
+    }*/
+
     @Override
     protected void onPluginStart() {
-        ConfigManager.createInstance("storageplayerdata21", "storageuuiddata21", "storagepower21", "storagehotbar21");
+        //adventure(this);
+        ConfigManager.createInstance("storageplayerdata21", "storageuuiddata21", "storagepower21", "storagehotbar21", "storageeditsession21");
         SchematicManager.init();
         PowerManager.init();
         HotbarManager.init();
@@ -48,7 +60,7 @@ public class CosmicPlugin extends SimplePlugin {
 
         try {
             ReflectionUtil.getClasses(this, Class.forName("withicality.csmp.CosmicCommand")).stream().filter(x -> !x.getSimpleName().startsWith("Legacy_")).forEach(x -> registerCommand((CosmicCommand) newInstance(x)));
-            ReflectionUtil.getClasses(this, Class.forName("withicality.csmp.CosmicPlugin$CosmicListener")).stream().filter(x -> !x.getSimpleName().startsWith("Legacy_")).forEach(x -> registerEvents((Listener) newInstance(x)));
+            ReflectionUtil.getClasses(this, Class.forName("withicality.csmp.CosmicPlugin$CosmicListener")).stream().filter(x -> !x.getSimpleName().startsWith("Legacy_") && !x.getName().equals("withicality.csmp.manager.power.PowerManager$BasedListener")).forEach(x -> registerEvents((Listener) newInstance(x)));
             //ReflectionUtil.getClasses(this, Class.forName("com.comphenix.protocol.events.PacketAdapter")).stream().filter(x -> !x.getSimpleName().startsWith("Legacy_")).forEach(x -> manager.addPacketListener((PacketAdapter) newInstance(x)));
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -62,6 +74,7 @@ public class CosmicPlugin extends SimplePlugin {
         try {
             PowerManager.save();
             HotbarManager.save();
+            SchematicManager.saveConfig();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -69,6 +82,7 @@ public class CosmicPlugin extends SimplePlugin {
 
     private Object newInstance(Class<?> clazz) {
         try {
+            Bukkit.getLogger().severe("DEBUG >> " + clazz.getName());
             return clazz.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             displayError0(e);

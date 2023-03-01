@@ -14,10 +14,13 @@ import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.World;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.scheduler.BukkitRunnable;
 import withicality.csmp.CosmicPlugin;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +32,7 @@ import java.util.Set;
  */
 public class SchematicManager {
     private final static CosmicPlugin plugin = (CosmicPlugin) CosmicPlugin.getInstance();
+    public final static String ID = "storageeditsession21";
 
     private final static HashMap<String, EditSession> undo = new HashMap<>();
     private final static HashMap<String, EditSession> redo = new HashMap<>();
@@ -36,6 +40,41 @@ public class SchematicManager {
     public static void init() {
         File file = new File(plugin.getDataFolder().getAbsolutePath() + "/schematics");
         if (!file.exists()) file.mkdirs();
+
+        loadConfig();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                try {
+                    saveConfig();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }.runTaskTimerAsynchronously(CosmicPlugin.getInstance(), 5*60*20, 5*60*20);
+    }
+
+    public static void loadConfig() {
+        FileConfiguration config = ConfigManager.getInstance().getCustomConfig(ID);
+        ConfigManager.getInstance().reloadConfig(ID);
+        if (config.get("undo") != null) config.getMapList("undo").forEach(x -> x.keySet().forEach(y -> {
+            EditSession session = (EditSession) config.get("undo." + y, EditSession.class);
+            undo.put((String) y, session);
+        }));
+
+        if (config.get("redo") != null) config.getMapList("redo").forEach(x -> x.keySet().forEach(y -> {
+            EditSession session = (EditSession) config.get("redo." + y, EditSession.class);
+            redo.put((String) y, session);
+        }));
+    }
+
+    public static void saveConfig() throws IOException {
+        FileConfiguration config = ConfigManager.getInstance().getCustomConfig(ID);
+
+        undo.forEach((x, y) -> config.set("undo." + x, y));
+        redo.forEach((x, y) -> config.set("redo." + x, y));
+
+        ConfigManager.getInstance().save(ID);
     }
 
     public static List<String> get() {

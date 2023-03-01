@@ -7,7 +7,6 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import withicality.csmp.CosmicPlugin;
@@ -71,13 +70,14 @@ public class PowerManager {
     }
 
     public static boolean toggle(Power power, OfflinePlayer player, World world) {
-        return hasPower(power, player, world) ? disable(power, player, world) : enable(power, player, world);
+        if (hasPower(power, player, world)) disable(power, player, world); else enable(power, player, world);
+        return hasPower(power, player, world);
     }
 
     private static String getPath(Power power, UUID uuid) {
         return power.name() + "." + uuid.toString();
     }
-    public static abstract class BasedListener implements Listener {
+    public static abstract class BasedListener extends CosmicPlugin.CosmicListener {
 
         private final Power power;
         public BasedListener(Power power) {
@@ -85,15 +85,19 @@ public class PowerManager {
         }
 
         @EventHandler
-        public void onUse(PlayerSwapHandItemsEvent event) {
+        public final void onUse(PlayerSwapHandItemsEvent event) {
             Player player = event.getPlayer();
             if (!player.isSneaking()) return;
-            if (!hasPower(power, player, player.getWorld())) return;
+            if (!hasPower(player)) return;
+            if (!power.isHotbar() || !HotbarManager.get(player, player.getInventory().getHeldItemSlot()).equals(power)) return;
             event.setCancelled(true);
             run(event, player);
         }
 
-        public abstract void run(PlayerSwapHandItemsEvent event, Player player);
+        protected abstract void run(PlayerSwapHandItemsEvent event, Player player);
+        protected final boolean hasPower(Player player) {
+            return PowerManager.hasPower(power, player, player.getWorld());
+        }
     }
 
 }

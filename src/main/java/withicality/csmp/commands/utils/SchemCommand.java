@@ -10,6 +10,7 @@ import withicality.csmp.CosmicStatic;
 import withicality.csmp.CosmicCommand;
 import withicality.csmp.manager.SchematicManager;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +43,22 @@ public class SchemCommand extends CosmicCommand {
             return;
         }
 
+        if (schem.equalsIgnoreCase("save")) {
+            try {
+                SchematicManager.saveConfig();
+                sender.sendMessage(ChatColor.GREEN + "Saved to config!");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
+        if (schem.equalsIgnoreCase("load")) {
+            SchematicManager.loadConfig();
+            sender.sendMessage(ChatColor.GREEN + "Saved to config!");
+            return;
+        }
+
         checkArgs(5, "You forgot (some) stuff. Tip: make sure you specified world in the end");
 
         int x = Integer.parseInt(args[1]);
@@ -60,14 +77,15 @@ public class SchemCommand extends CosmicCommand {
     public List<String> tabComplete() {
         int length = args.length;
 
-        if (length == 1) return completeLastWord(SchematicManager.get(), "undo", "redo", "list");
+        if (length == 1) return completeLastWord(SchematicManager.get(), "undo", "redo", "list", "save", "load");
 
         if (length >= 2 && Arrays.asList("undo", "redo", "list").contains(args[0].toLowerCase(Locale.ROOT))) {
             if (args[0].equalsIgnoreCase("list") || length > 2) return NO_COMPLETE;
             if (args[0].equalsIgnoreCase("undo") || args[0].equalsIgnoreCase("redo")) return SchematicManager.getIds(args[0]);
+
         }
 
-
+        if (Arrays.asList("save", "load").contains(args[0].toLowerCase(Locale.ROOT))) return NO_COMPLETE;
         if (!(sender instanceof Player player)) return NO_COMPLETE;
 
         return switch (length) {

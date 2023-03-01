@@ -27,6 +27,7 @@ public enum Power {
     PREVIEW3_9("b ", true, Material.NETHER_BRICK_SLAB),
     PREVIEW3_10("i dont go to school ", true, Material.NETHERITE_INGOT),
     PREVIEW3_11("also i am learning polish ", true, Material.BEEF),
+    IMMORTALITY("Immortality", false, Material.TOTEM_OF_UNDYING)
     ;
 
     public static final NamespacedKey KEY = new NamespacedKey(CosmicPlugin.getInstance(), "powernameidybtb");
