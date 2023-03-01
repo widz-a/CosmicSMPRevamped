@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerVanishListener extends CosmicPlugin.CosmicListener {
-    @EventHandler
+    //@EventHandler
     public void onVanish(PlayerHideEvent event) {
         if (event.isSilent()) return;
         Bukkit.getScheduler().runTaskAsynchronously(DiscordSRV.getPlugin(),
                 () -> DiscordSRV.getPlugin().sendLeaveMessage(event.getPlayer(), event.getPlayer().getDisplayName() + " left the CosmicSMP."));
     }
 
-    @EventHandler
+    //@EventHandler
     public void onAppear(PlayerShowEvent event) {
         if (event.isSilent()) return;
         Bukkit.getScheduler().runTaskAsynchronously(DiscordSRV.getPlugin(), () ->
